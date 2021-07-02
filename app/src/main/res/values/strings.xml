@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">WGU Student Scheduler</string>
+    <string name="add_assessment">Add Assessment</string>
+
+    <string name="hint_assessment_title">Assessment Title:</string>
+    <string name="hint_assessment_start_date">Start Date:</string>
+    <string name="hint_assessment_end_date">End Date:</string>
+    <string name="button_save">Save</string>
+    <string name="assessment_empty_not_saved">Assessment not saved because there are values empty.</string>
+</resources>
