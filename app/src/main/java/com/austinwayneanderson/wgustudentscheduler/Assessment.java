@@ -28,14 +28,19 @@ public class Assessment {
     private String endDate;
 
     @NonNull
+    @ColumnInfo(name = "type")
+    private String type;
+
+    @NonNull
     @ColumnInfo(name = "course_id")
     private int courseId;
 
     @Ignore
-    public Assessment(@NonNull String title, @NonNull String startDate, @NonNull String endDate, @NonNull int courseId) {
+    public Assessment(@NonNull String title, @NonNull String startDate, @NonNull String endDate, @NonNull String type, @NonNull int courseId) {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.type = type;
         this.courseId = courseId;
     }
 
@@ -43,19 +48,20 @@ public class Assessment {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.courseId = 0; //  UPDATE WHEN FIXING FOR COURSE ID
     }
 
     public int getId() { return this.id; }
     public String getTitle() { return this.title; }
     public String getStartDate() { return this.startDate; }
     public String getEndDate() { return this.endDate; }
+    public String getType() { return this.type; }
     public int getCourseId() { return this.courseId; }
     public String getAssessment() { return this.id + ": " + this.title; }
 
     public void setId(int id) { this.id = id; }
     public void setTitle(String title) { this.title = title; }
-    public void setStartDate(String id) { this.startDate = startDate; }
-    public void setEndDate(String id) { this.endDate = endDate; }
+    public void setStartDate(String startDate) { this.startDate = startDate; }
+    public void setEndDate(String endDate) { this.endDate = endDate; }
+    public void setType(String type) { this.type = type; }
     public void setCourseId(int courseId) { this.courseId = courseId; }
 }

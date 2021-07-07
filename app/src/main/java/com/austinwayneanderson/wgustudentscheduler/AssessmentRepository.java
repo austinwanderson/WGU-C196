@@ -24,4 +24,17 @@ public class AssessmentRepository {
             mAssessmentDao.insert(assessment);
         });
     }
+
+    void update(Assessment a, int id) {
+        SchedulerRoomDatabase.databaseWriteExecutor.execute(() -> {
+            a.setId(id);
+            mAssessmentDao.update(a);
+        });
+    }
+
+    void delete(Assessment a) {
+        SchedulerRoomDatabase.databaseWriteExecutor.execute(() -> {
+            mAssessmentDao.delete(a);
+        });
+    }
 }

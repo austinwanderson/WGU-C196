@@ -14,7 +14,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class AssessmentsActivity extends AppCompatActivity {
 
     private AssessmentsViewModel mAssessmentsViewModel;
-    public static final int NEW_ASSESSMENT_ACTIVITY_REQUEST_CODE= 1;
+    public static final int NEW_ASSESSMENT_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,9 @@ public class AssessmentsActivity extends AppCompatActivity {
         if (requestCode == NEW_ASSESSMENT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Assessment assessment = new Assessment(data.getStringExtra(NewAssessmentActivity.REPLY_TITLE),
                     data.getStringExtra(NewAssessmentActivity.REPLY_START),
-                    data.getStringExtra(NewAssessmentActivity.REPLY_END));
+                    data.getStringExtra(NewAssessmentActivity.REPLY_END),
+                    data.getStringExtra(NewAssessmentActivity.REPLY_TYPE),
+                    data.getIntExtra(NewAssessmentActivity.REPLY_COURSE_ID,0));
             mAssessmentsViewModel.insert(assessment);
         } else {
             Toast.makeText(

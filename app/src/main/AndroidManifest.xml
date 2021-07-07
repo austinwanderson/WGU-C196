@@ -13,6 +13,7 @@
         <activity android:name=".CoursesActivity" />
         <activity android:name=".AssessmentsActivity" />
         <activity android:name=".NewAssessmentActivity" />
+        <activity android:name=".AssessmentDetailActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

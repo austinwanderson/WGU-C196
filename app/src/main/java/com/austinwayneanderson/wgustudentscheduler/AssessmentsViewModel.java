@@ -25,4 +25,6 @@ public class AssessmentsViewModel extends AndroidViewModel {
     void insert(Assessment a) {
         mAssessmentRepository.insert(a);
     }
+    void update(Assessment a, int id) { mAssessmentRepository.update(a, id); }
+    void delete(Assessment a) { mAssessmentRepository.delete(a); }
 }

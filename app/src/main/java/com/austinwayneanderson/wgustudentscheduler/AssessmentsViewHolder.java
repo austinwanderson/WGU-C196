@@ -1,5 +1,7 @@
 package com.austinwayneanderson.wgustudentscheduler;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +15,11 @@ class AssessmentsViewHolder extends RecyclerView.ViewHolder {
 
     //private final TextView assessmentItemView;
     private final Button assessmentDetailButton;
+    private final Context context;
 
     private AssessmentsViewHolder(View assessmentView) {
         super(assessmentView);
+        context = assessmentView.getContext();
         //assessmentItemView = assessmentView.findViewById(R.id.textView);
         assessmentDetailButton = assessmentView.findViewById(R.id.detailBtn);
     }
@@ -27,12 +31,12 @@ class AssessmentsViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View v) {
                 Button b = (Button) v;
                 System.out.println(b.getText());
-                openAssessmentDetailActivity();
+                Intent intent = new Intent(context, AssessmentDetailActivity.class);
+                intent.putExtra("ASSESSMENT_ID", b.getText().toString().split(":",2)[0]);
+                intent.putExtra("ASSESSMENT_TITLE", b.getText().toString().split(":",2)[1]);
+                context.startActivity(intent);
             }
         });
-    }
-
-    private void openAssessmentDetailActivity() {
     }
 
     static AssessmentsViewHolder create (ViewGroup parent) {

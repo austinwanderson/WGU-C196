@@ -30,25 +30,13 @@ public abstract class SchedulerRoomDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             SchedulerRoomDatabase.class, "scheduler_database")
-                            .addCallback(sRoomDatabaseCallback)
+                            .allowMainThreadQueries()
                             .build();
                 }
             }
         }
         return INSTANCE;
     }
-
-    private static SchedulerRoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
-        @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
-            databaseWriteExecutor.execute(() -> {
-                //TODO: DELETES ALL DATA ON STARTUP. REMOVE IN PRODUCTION
-                AssessmentDao dao = INSTANCE.assessmentDao();
-                dao.deleteAll();
-            });
-        }
-    };
 }
 
 
