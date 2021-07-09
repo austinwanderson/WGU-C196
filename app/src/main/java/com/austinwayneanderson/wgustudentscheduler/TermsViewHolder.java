@@ -11,35 +11,35 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-class CoursesViewHolder extends RecyclerView.ViewHolder {
+class TermsViewHolder extends RecyclerView.ViewHolder {
 
-    private final Button courseDetailButton;
+    private final Button termDetailButton;
     private final Context context;
 
-    private CoursesViewHolder(View courseView) {
-        super(courseView);
-        context = courseView.getContext();
-        courseDetailButton = courseView.findViewById(R.id.detailBtn);
+    private TermsViewHolder(View termView) {
+        super(termView);
+        context = termView.getContext();
+        termDetailButton = termView.findViewById(R.id.detailBtn);
     }
 
     public void bind(String text) {
-        courseDetailButton.setText(text);
-        courseDetailButton.setOnClickListener(new View.OnClickListener() {
+        termDetailButton.setText(text);
+        termDetailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Button b = (Button) v;
                 System.out.println(b.getText());
-                Intent intent = new Intent(context, CourseDetailActivity.class);
-                intent.putExtra("COURSE_ID", b.getText().toString().split(":",2)[0]);
-                intent.putExtra("COURSE_TITLE", b.getText().toString().split(":",2)[1]);
+                Intent intent = new Intent(context, TermDetailActivity.class);
+                intent.putExtra("TERM_ID", b.getText().toString().split(":",2)[0]);
+                intent.putExtra("TERM_TITLE", b.getText().toString().split(":",2)[1]);
                 context.startActivity(intent);
             }
         });
     }
 
-    static CoursesViewHolder create (ViewGroup parent) {
+    static TermsViewHolder create (ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recyclerview_item, parent, false);
-        return new CoursesViewHolder(view);
+        return new TermsViewHolder(view);
     }
 }

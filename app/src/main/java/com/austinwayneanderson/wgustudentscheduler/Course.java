@@ -42,6 +42,9 @@ public class Course {
     @Ignore
     private List<Assessment> assessments;
 
+    @Ignore
+    private List<Note> notes;
+
     public Course(@NonNull String title, @NonNull String startDate, @NonNull String endDate, @NonNull String status, List<Instructor> instructors, List<Assessment> assessments) {
         this.title = title;
         this.startDate = startDate;
@@ -67,6 +70,7 @@ public class Course {
     public List<Instructor> getInstructors() { return this.instructors; }
     public List<Assessment> getAssessments() { return this.assessments; }
     public String getStatus() { return this.status; }
+    public String getCourse() { return this.id + ": " + this.title; }
     public void addInstructor(Instructor i) {
         //TODO
     }

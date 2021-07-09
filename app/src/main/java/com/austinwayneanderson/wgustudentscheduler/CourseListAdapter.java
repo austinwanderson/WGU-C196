@@ -4,7 +4,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
-/*
+
+import java.util.List;
+
 public class CourseListAdapter extends ListAdapter<Course, CoursesViewHolder> {
 
     public CourseListAdapter(@NonNull DiffUtil.ItemCallback<Course> diffCallback) {
@@ -35,4 +37,3 @@ public class CourseListAdapter extends ListAdapter<Course, CoursesViewHolder> {
         }
     }
 }
-*/

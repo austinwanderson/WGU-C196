@@ -12,15 +12,15 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/assessmentDetailId"
+            android:id="@+id/termDetailId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Assessment ID:" />
+            android:text="Term ID:" />
 
         <TextView
-            android:id="@+id/assessmentDetailTitle"
+            android:id="@+id/termDetailTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -28,7 +28,7 @@
             android:text="Title:" />
 
         <TextView
-            android:id="@+id/assessmentDetailStart"
+            android:id="@+id/termDetailStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -36,36 +36,30 @@
             android:text="Start Date:" />
 
         <TextView
-            android:id="@+id/assessmentDetailEnd"
+            android:id="@+id/termDetailEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="End Date:" />
 
-        <TextView
-            android:id="@+id/assessmentDetailType"
+        <Button
+            android:id="@+id/viewTermCoursesButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Type:" />
+            android:backgroundTint="#0288D1"
+            android:text="View Courses" />
 
-        <TextView
-            android:id="@+id/assessmentDetailCourse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Course ID:" />
 
         <Button
-            android:id="@+id/editAssessmentButton"
+            android:id="@+id/editTermButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Edit Assessment" />
+            android:text="Edit Term" />
 
     </LinearLayout>
 

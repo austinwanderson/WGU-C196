@@ -12,15 +12,15 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/assessmentDetailId"
+            android:id="@+id/courseDetailId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Assessment ID:" />
+            android:text="Course ID:" />
 
         <TextView
-            android:id="@+id/assessmentDetailTitle"
+            android:id="@+id/courseDetailTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -28,7 +28,7 @@
             android:text="Title:" />
 
         <TextView
-            android:id="@+id/assessmentDetailStart"
+            android:id="@+id/courseDetailStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -36,7 +36,7 @@
             android:text="Start Date:" />
 
         <TextView
-            android:id="@+id/assessmentDetailEnd"
+            android:id="@+id/courseDetailEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -44,28 +44,47 @@
             android:text="End Date:" />
 
         <TextView
-            android:id="@+id/assessmentDetailType"
+            android:id="@+id/courseDetailStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Type:" />
+            android:text="Status:" />
 
         <TextView
-            android:id="@+id/assessmentDetailCourse"
+            android:id="@+id/courseDetailTermId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Course ID:" />
+            android:text="Term ID:" />
 
         <Button
-            android:id="@+id/editAssessmentButton"
+            android:id="@+id/viewCourseNotesButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Edit Assessment" />
+            android:backgroundTint="#0288D1"
+            android:text="View Notes" />
+
+        <Button
+            android:id="@+id/viewCourseInstructorsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#0288D1"
+            android:text="View Instructors" />
+
+
+        <Button
+            android:id="@+id/editCourseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Edit Course" />
 
     </LinearLayout>
 

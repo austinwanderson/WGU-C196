@@ -11,11 +11,12 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Assessment.class, Course.class, Instructor.class, Term.class}, version = 1, exportSchema = false)
+@Database(entities = {Assessment.class, Course.class, Instructor.class, Term.class, Note.class}, version = 1, exportSchema = false)
 public abstract class SchedulerRoomDatabase extends RoomDatabase {
 
     public abstract AssessmentDao assessmentDao();
     public abstract InstructorDao instructorDao();
+    public abstract NoteDao noteDao();
     public abstract CourseDao courseDao();
     public abstract TermDao termDao();
 

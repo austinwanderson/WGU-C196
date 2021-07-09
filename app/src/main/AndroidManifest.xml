@@ -13,7 +13,15 @@
         <activity android:name=".CoursesActivity" />
         <activity android:name=".AssessmentsActivity" />
         <activity android:name=".NewAssessmentActivity" />
+        <activity android:name=".NewCourseActivity" />
+        <activity android:name=".NewNoteActivity" />
+        <activity android:name=".NewTermActivity" />
+        <activity android:name=".CourseNotesActivity" />
+        <activity android:name=".CourseInstructorsActivity" />
+        <activity android:name=".NewInstructorActivity" />
         <activity android:name=".AssessmentDetailActivity" />
+        <activity android:name=".CourseDetailActivity" />
+        <activity android:name=".TermDetailActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

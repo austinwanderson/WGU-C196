@@ -35,6 +35,7 @@ public class Term {
     public String getTitle() { return this.title; }
     public String getStartDate() { return this.startDate; }
     public String getEndDate() { return this.endDate; }
+    public String getTerm() { return this.id + ": " + this.title; }
 
     public void setId(int id) { this.id = id; }
     public void setTitle(String title) { this.title = title; }

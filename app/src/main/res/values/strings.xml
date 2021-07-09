@@ -10,4 +10,16 @@
     <string name="assessment_empty_not_saved">Assessment not saved because there are values empty.</string>
     <string name="assessment_updated">Assessment was successfully updated!</string>
     <string name="assessment_deleted">Assessment was successfully deleted!</string>
+    <string name="course_empty_not_saved">Course not saved because there are values empty.</string>
+    <string name="course_updated">Course was successfully updated!</string>
+    <string name="course_deleted">Course was successfully deleted!</string>
+    <string name="instructor_empty_not_saved">Instructor not saved because there are values empty.</string>
+    <string name="instructor_updated">Instructor was successfully updated!</string>
+    <string name="instructor_deleted">Instructor was successfully deleted!</string>
+    <string name="note_empty_not_saved">Note not saved because there are values empty.</string>
+    <string name="note_updated">Note was successfully updated!</string>
+    <string name="note_deleted">Note was successfully deleted!</string>
+    <string name="term_empty_not_saved">Term not saved because there are values empty.</string>
+    <string name="term_updated">Term was successfully updated!</string>
+    <string name="term_deleted">Term was successfully deleted!</string>
 </resources>

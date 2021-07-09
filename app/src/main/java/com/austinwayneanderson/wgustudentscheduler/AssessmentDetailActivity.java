@@ -3,11 +3,14 @@ package com.austinwayneanderson.wgustudentscheduler;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Room;
@@ -16,7 +19,6 @@ public class AssessmentDetailActivity extends AppCompatActivity {
 
     private static final int EDITED_ASSESSMENT_ACTIVITY_REQUEST_CODE = 1;
     private Button editAssessmentButton;
-    private Button deleteAssessmentButton;
     private TextView assessmentTitle;
     private TextView assessmentStart;
     private TextView assessmentEnd;
@@ -27,11 +29,30 @@ public class AssessmentDetailActivity extends AppCompatActivity {
     private Bundle extras;
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_assessment_detail, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.delete_assessment_item: {
+                deleteAssessment();
+                break;
+            }
+        }
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assessment_detail);
+
+        ActionBar actionBar = getSupportActionBar();
+
         editAssessmentButton = findViewById(R.id.editAssessmentButton);
-        deleteAssessmentButton = findViewById(R.id.deleteAssessmentButton);
         assessmentTitle = findViewById(R.id.assessmentDetailTitle);
         assessmentStart = findViewById(R.id.assessmentDetailStart);
         assessmentEnd = findViewById(R.id.assessmentDetailEnd);
@@ -51,12 +72,12 @@ public class AssessmentDetailActivity extends AppCompatActivity {
             }
         });
 
-        deleteAssessmentButton.setOnClickListener(new View.OnClickListener() {
+        /*deleteAssessmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 deleteAssessment();
             }
-        });
+        });*/
 
     }
 

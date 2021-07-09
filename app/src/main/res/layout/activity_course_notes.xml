@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TermsActivity">
+    tools:context=".CourseNotesActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/termsList"
+        android:id="@+id/notesList"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        tools:listitem="@layout/recyclerview_item"
+        tools:listitem="@layout/recyclerview_note_item"
         android:padding="@dimen/big_padding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -18,13 +18,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addTermFab"
+        android:id="@+id/addNoteFab"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:contentDescription="@string/add_assessment"
+        android:contentDescription="Add Note"
         android:src="@drawable/add_circle_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
