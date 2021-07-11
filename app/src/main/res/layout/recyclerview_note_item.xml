@@ -4,13 +4,12 @@
     android:layout_height="wrap_content"
     android:background="#FFFFFF">
 
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="4dp"
-        android:layout_margin="8dp">
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_margin="8dp"
+        android:elevation="4dp">
+        <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +33,23 @@
                 android:text="NOTE CONTENT"
                 android:paddingBottom="12dp"/>
 
+            <TextView
+                android:id="@+id/noteShare"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Click on this note to share."
+                android:paddingBottom="12dp"/>
+
         </LinearLayout>
+
+        <Button
+            android:id="@+id/shareBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="#00FFFFFF"
+            android:elevation="0dp"
+            android:stateListAnimator="@null"
+            android:text="" />
 
     </androidx.cardview.widget.CardView>
 

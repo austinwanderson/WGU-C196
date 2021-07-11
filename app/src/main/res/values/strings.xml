@@ -3,8 +3,8 @@
     <string name="add_assessment">Add Assessment</string>
 
     <string name="hint_assessment_title">Assessment Title:</string>
-    <string name="hint_assessment_start_date">Start Date:</string>
-    <string name="hint_assessment_end_date">End Date:</string>
+    <string name="hint_assessment_start_date">Start Date (dd/MM/yy):</string>
+    <string name="hint_assessment_end_date">End Date (dd/MM/yy):</string>
     <string name="hint_assessment_course_id">Course ID:</string>
     <string name="button_save">Save</string>
     <string name="assessment_empty_not_saved">Assessment not saved because there are values empty.</string>
@@ -22,4 +22,5 @@
     <string name="term_empty_not_saved">Term not saved because there are values empty.</string>
     <string name="term_updated">Term was successfully updated!</string>
     <string name="term_deleted">Term was successfully deleted!</string>
+    <string name="term_not_deleted">Term was not deleted because there are courses assigned.</string>
 </resources>

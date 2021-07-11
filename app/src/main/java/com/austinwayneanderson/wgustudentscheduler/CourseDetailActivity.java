@@ -1,6 +1,10 @@
 package com.austinwayneanderson.wgustudentscheduler;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,8 +16,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Room;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class CourseDetailActivity extends AppCompatActivity {
 
@@ -29,6 +39,10 @@ public class CourseDetailActivity extends AppCompatActivity {
     private TextView courseId;
     private CoursesViewModel mCoursesViewModel;
     private Bundle extras;
+
+    final Calendar calendar = Calendar.getInstance();
+    public static final String NOTIFICATION_CHANNEL_ID = "10001";
+    private final static String default_notification_channel_id = "default";
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -146,6 +160,24 @@ public class CourseDetailActivity extends AppCompatActivity {
                     getApplicationContext(),
                     R.string.course_updated,
                     Toast.LENGTH_LONG).show();
+
+            String myFormat = "dd/MM/yy HH:mm:ss";
+            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+            try {
+                long sFuture = sdf.parse(course.getStartDate() + " 17:38:00").getTime();
+                long sNow = calendar.getTimeInMillis();
+                long sDelay = sFuture - sNow;
+                System.out.println("start delay: " + sDelay);
+                scheduleNotification(getNotification(course.getTitle() + " is starting today!", "Course " + course.getTitle() + " is starting today."), sDelay);
+
+                long fFuture = sdf.parse(course.getEndDate() + " 00:00:00").getTime();
+                long fNow = calendar.getTimeInMillis();
+                long fDelay = fFuture - fNow;
+                System.out.println("start delay: " + fDelay);
+                scheduleNotification(getNotification(course.getTitle() + " is ending today!", course.getTitle() + " is ending today!"), fDelay);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         } else {
             if (resultCode != RESULT_CANCELED) {
                 Toast.makeText(
@@ -154,5 +186,25 @@ public class CourseDetailActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    private void scheduleNotification(Notification notification, long delay) {
+        Intent notificationIntent = new Intent(this, NotificationPublisher.class);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        assert alarmManager != null;
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, delay, pendingIntent);
+    }
+
+    private Notification getNotification(String title, String content) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, default_notification_channel_id);
+        builder.setContentTitle(title);
+        builder.setContentText(content);
+        builder.setSmallIcon(R.drawable.ic_launcher_foreground);
+        builder.setAutoCancel(true);
+        builder.setChannelId(NOTIFICATION_CHANNEL_ID);
+        return builder.build();
     }
 }

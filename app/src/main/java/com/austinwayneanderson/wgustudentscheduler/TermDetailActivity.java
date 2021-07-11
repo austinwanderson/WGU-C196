@@ -95,13 +95,21 @@ public class TermDetailActivity extends AppCompatActivity {
     private void deleteTerm() {
         SchedulerRoomDatabase db = SchedulerRoomDatabase.getDatabase(getApplicationContext());
         Term term = db.termDao().getTermById(extras.getString("TERM_ID"));
-        mTermsViewModel.delete(term);
-        Intent intent = new Intent(this, TermsActivity.class);
-        startActivity(intent);
-        Toast.makeText(
-                getApplicationContext(),
-                R.string.term_deleted,
-                Toast.LENGTH_LONG).show();
+        int courseCount = db.courseDao().getNumberOfCoursesInTerm((extras.getString("TERM_ID")));
+        if (courseCount > 0) {
+            Toast.makeText(
+                    getApplicationContext(),
+                    R.string.term_not_deleted,
+                    Toast.LENGTH_LONG).show();
+        } else {
+            mTermsViewModel.delete(term);
+            Intent intent = new Intent(this, TermsActivity.class);
+            startActivity(intent);
+            Toast.makeText(
+                    getApplicationContext(),
+                    R.string.term_deleted,
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     private void openEditTermActivity() {
