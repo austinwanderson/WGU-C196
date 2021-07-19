@@ -30,4 +30,10 @@ public interface InstructorDao {
 
     @Query("SELECT * FROM instructors ORDER BY name ASC")
     LiveData<List<Instructor>> getAlphabetizedInstructors();
+
+    @Query("SELECT * FROM instructors WHERE id = :instructor_id")
+    Instructor getInstructorById(String instructor_id);
+
+    @Query("SELECT * FROM instructors WHERE name = :name AND phone_number = :phone AND email_address = :email")
+    Instructor getInstructorByDetails(String name, String phone, String email);
 }

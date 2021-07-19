@@ -37,6 +37,7 @@ public class Note {
     public int getId() { return this.id; }
     public int getCourseId() { return this.courseId; }
     public String getTitle() { return this.title; }
+    public String getNoteTitle() { return this.id + ": " + this.title; }
     public String getContents() { return this.contents; }
 
     public void setId(int id) { this.id = id; }

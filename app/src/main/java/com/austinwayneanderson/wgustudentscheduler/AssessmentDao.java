@@ -33,4 +33,7 @@ public interface AssessmentDao {
 
     @Query("SELECT * FROM assessments WHERE id = :assessment_id")
     Assessment getAssessmentById(String assessment_id);
+
+    @Query("SELECT * FROM assessments WHERE course_id = :currentCourse ORDER BY title ASC")
+    LiveData<List<Assessment>> getAssessmentsInCourse(String currentCourse);
 }

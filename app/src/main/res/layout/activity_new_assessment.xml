@@ -68,6 +68,13 @@
             android:text="Objective Assessment" />
     </RadioGroup>
 
+    <TextView
+        android:id="@+id/assessmentAlertText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="You will recieve automatic alerts for start/end dates."
+        android:paddingLeft="16dp"/>
+
     <Button
         android:id="@+id/button_save"
         android:layout_width="match_parent"

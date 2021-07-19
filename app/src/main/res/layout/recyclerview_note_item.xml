@@ -37,13 +37,13 @@
                 android:id="@+id/noteShare"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Click on this note to share."
+                android:text="Click on this note for options."
                 android:paddingBottom="12dp"/>
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/shareBtn"
+            android:id="@+id/noteDetailBtn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:backgroundTint="#00FFFFFF"

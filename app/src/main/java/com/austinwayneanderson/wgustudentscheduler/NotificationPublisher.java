@@ -11,10 +11,11 @@ import static com.austinwayneanderson.wgustudentscheduler.NotificationHandler.NO
 
 public class NotificationPublisher extends BroadcastReceiver {
     public static String NOTIFICATION_ID = "wgu-scheduler-notification";
-    public static String NOTIFICATION = "course-alert";
+    public static String NOTIFICATION = "scheduler-alert";
     public void onReceive (Context context, Intent intent) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notification = intent.getParcelableExtra(NOTIFICATION);
+        System.out.println(notification);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "NOTIFICATION_CHANNEL_WGU_SCHEDULER", importance);

@@ -33,7 +33,12 @@ public class CourseInstructorsActivity extends AppCompatActivity {
         SchedulerRoomDatabase db = SchedulerRoomDatabase.getDatabase(getApplicationContext());
         Course course = db.courseDao().getCourseById(extras.getString("COURSE_ID"));
 
-        System.out.println("Course ID for instructors: " + course.getId());
+        if (extras.getString("edited_instructor_id") != null) {
+            Toast.makeText(
+                    getApplicationContext(),
+                    R.string.instructor_updated,
+                    Toast.LENGTH_LONG).show();
+        }
 
         mInstructorsViewModel.getAllCourseInstructors(course.getId()).observe(this, instructors -> {
             adapter.submitList(instructors);

@@ -33,7 +33,12 @@ public class CourseNotesActivity extends AppCompatActivity {
         SchedulerRoomDatabase db = SchedulerRoomDatabase.getDatabase(getApplicationContext());
         Course course = db.courseDao().getCourseById(extras.getString("COURSE_ID"));
 
-        System.out.println("Course ID for notes: " + course.getId());
+        if (extras.getString("edited_note_id") != null) {
+            Toast.makeText(
+                    getApplicationContext(),
+                    R.string.note_updated,
+                    Toast.LENGTH_LONG).show();
+        }
 
         mNotesViewModel.getAllCourseNotes(course.getId()).observe(this, notes -> {
             adapter.submitList(notes);

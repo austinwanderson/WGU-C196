@@ -11,6 +11,7 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -29,11 +30,45 @@ public class AssessmentsActivity extends AppCompatActivity {
     final Calendar calendar = Calendar.getInstance();
     public static final String NOTIFICATION_CHANNEL_ID = "10001";
     private final static String default_notification_channel_id = "default";
+    private Bundle extras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assessments);
+
+        if (getIntent().getExtras() != null) {
+            extras = getIntent().getExtras();
+            if (extras.getString("COURSE_ID") != null) {
+                showCourseAssessments(extras.getString("COURSE_ID"));
+            } else {
+                showAllAssessments();
+            }
+        } else {
+            showAllAssessments();
+        }
+    }
+
+    public void showCourseAssessments(String course_id) {
+        RecyclerView recyclerView = findViewById(R.id.assessmentList);
+        final AssessmentListAdapter adapter = new AssessmentListAdapter(new AssessmentListAdapter.AssessmentDiff());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mAssessmentsViewModel = new ViewModelProvider(this).get(AssessmentsViewModel.class);
+
+        mAssessmentsViewModel.getCourseAssessments(course_id).observe(this, assessments -> {
+            adapter.submitList(assessments);
+        });
+
+        FloatingActionButton fab = findViewById(R.id.addAssessmentFab);
+        fab.setOnClickListener(view -> {
+            Intent intent = new Intent(AssessmentsActivity.this, NewAssessmentActivity.class);
+            startActivityForResult(intent, NEW_ASSESSMENT_ACTIVITY_REQUEST_CODE);
+        });
+    }
+
+    public void showAllAssessments() {
         RecyclerView recyclerView = findViewById(R.id.assessmentList);
         final AssessmentListAdapter adapter = new AssessmentListAdapter(new AssessmentListAdapter.AssessmentDiff());
         recyclerView.setAdapter(adapter);
@@ -65,16 +100,9 @@ public class AssessmentsActivity extends AppCompatActivity {
             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
             try {
                 long sFuture = sdf.parse(assessment.getStartDate() + " 00:00:00").getTime();
-                long sNow = calendar.getTimeInMillis();
-                long sDelay = sFuture - sNow;
-                System.out.println("start delay: " + sDelay);
-                scheduleNotification(getNotification(assessment.getTitle() + " is starting today!", "Assessment " + assessment.getTitle() + " is starting today."), sDelay);
-
+                scheduleNotification(getNotification(assessment.getTitle() + " is starting today!", "Assessment " + assessment.getTitle() + " is starting today."), sFuture, 0);
                 long fFuture = sdf.parse(assessment.getEndDate() + " 00:00:00").getTime();
-                long fNow = calendar.getTimeInMillis();
-                long fDelay = fFuture - fNow;
-                System.out.println("end delay: " + fDelay);
-                scheduleNotification(getNotification(assessment.getTitle() + " is ending today!", assessment.getTitle() + " is ending today!"), fDelay);
+                scheduleNotification(getNotification(assessment.getTitle() + " is ending today!", assessment.getTitle() + " is ending today!"), fFuture, 1);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -86,14 +114,16 @@ public class AssessmentsActivity extends AppCompatActivity {
         }
     }
 
-    private void scheduleNotification(Notification notification, long delay) {
-        Intent notificationIntent = new Intent(this, NotificationPublisher.class);
+    private void scheduleNotification(Notification notification, long delay, int broadcast_id) {
+        Intent notificationIntent = new Intent("android.intent.action.VIEW", Uri.parse("http://www." + delay + ".com"), this, NotificationPublisher.class);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, broadcast_id, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         assert alarmManager != null;
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, delay, pendingIntent);
+        System.out.println("delay: " + delay);
+        System.out.println("broadcast ID: " + broadcast_id);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, delay, pendingIntent);
     }
 
     private Notification getNotification(String title, String content) {

@@ -41,7 +41,23 @@
                 android:text="instructor@email.com"
                 android:paddingBottom="12dp"/>
 
+            <TextView
+                android:id="@+id/instructorOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Click on this card for options."
+                android:paddingBottom="12dp"/>
+
         </LinearLayout>
+
+        <Button
+            android:id="@+id/instructorDetailBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="#00FFFFFF"
+            android:elevation="0dp"
+            android:stateListAnimator="@null"
+            android:text="" />
 
     </androidx.cardview.widget.CardView>
 

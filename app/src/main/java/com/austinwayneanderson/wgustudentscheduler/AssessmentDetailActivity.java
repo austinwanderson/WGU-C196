@@ -1,7 +1,12 @@
 package com.austinwayneanderson.wgustudentscheduler;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,8 +17,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Room;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class AssessmentDetailActivity extends AppCompatActivity {
 
@@ -27,6 +38,10 @@ public class AssessmentDetailActivity extends AppCompatActivity {
     private TextView assessmentType;
     private AssessmentsViewModel mAssessmentsViewModel;
     private Bundle extras;
+
+    final Calendar calendar = Calendar.getInstance();
+    public static final String NOTIFICATION_CHANNEL_ID = "10001";
+    private final static String default_notification_channel_id = "default";
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -71,21 +86,9 @@ public class AssessmentDetailActivity extends AppCompatActivity {
                 openEditAssessmentActivity();
             }
         });
-
-        /*deleteAssessmentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteAssessment();
-            }
-        });*/
-
     }
 
     private void updateInterfaceValues(Assessment assessment) {
-        //System.out.println("UpdateInterfaceValues: " + assessment_id);
-        //SchedulerRoomDatabase db = SchedulerRoomDatabase.getDatabase(getApplicationContext());
-        //Assessment assessment = db.assessmentDao().getAssessmentById(assessment_id);
-        //System.out.println(assessment);
         assessmentTitle.setText("Title: " + assessment.getTitle());
         assessmentStart.setText("Start Date: " + assessment.getStartDate());
         assessmentEnd.setText("End Date: " + assessment.getEndDate());
@@ -123,6 +126,16 @@ public class AssessmentDetailActivity extends AppCompatActivity {
             mAssessmentsViewModel.update(assessment, data.getIntExtra(NewAssessmentActivity.REPLY_ASSESSMENT_ID, -1));
             assessment.setId(data.getIntExtra(NewAssessmentActivity.REPLY_ASSESSMENT_ID, -1));
             updateInterfaceValues(assessment);
+            String myFormat = "dd/MM/yy HH:mm:ss";
+            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+            try {
+                long sFuture = sdf.parse(assessment.getStartDate() + " 00:00:00").getTime();
+                scheduleNotification(getNotification(assessment.getTitle() + " is starting today!", "Assessment " + assessment.getTitle() + " is starting today."), sFuture, 6);
+                long fFuture = sdf.parse(assessment.getEndDate() + " 00:00:00").getTime();
+                scheduleNotification(getNotification(assessment.getTitle() + " is ending today!", assessment.getTitle() + " is ending today!"), fFuture, 7);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             Toast.makeText(
                     getApplicationContext(),
                     R.string.assessment_updated,
@@ -135,5 +148,27 @@ public class AssessmentDetailActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    private void scheduleNotification(Notification notification, long delay, int broadcast_id) {
+        Intent notificationIntent = new Intent("android.intent.action.VIEW", Uri.parse("http://www." + delay + ".com"), this, NotificationPublisher.class);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, broadcast_id, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        assert alarmManager != null;
+        System.out.println("delay: " + delay);
+        System.out.println("broadcast ID: " + broadcast_id);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, delay, pendingIntent);
+    }
+
+    private Notification getNotification(String title, String content) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, default_notification_channel_id);
+        builder.setContentTitle(title);
+        builder.setContentText(content);
+        builder.setSmallIcon(R.drawable.ic_launcher_foreground);
+        builder.setAutoCancel(true);
+        builder.setChannelId(NOTIFICATION_CHANNEL_ID);
+        return builder.build();
     }
 }

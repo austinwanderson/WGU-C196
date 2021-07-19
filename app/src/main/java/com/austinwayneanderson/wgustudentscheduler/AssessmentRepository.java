@@ -8,6 +8,7 @@ public class AssessmentRepository {
 
     private AssessmentDao mAssessmentDao;
     private LiveData<List<Assessment>> mAllAssessments;
+    private LiveData<List<Assessment>> mAllAssessmentsInCourse;
 
     AssessmentRepository(Application application) {
         SchedulerRoomDatabase db = SchedulerRoomDatabase.getDatabase(application);
@@ -36,5 +37,10 @@ public class AssessmentRepository {
         SchedulerRoomDatabase.databaseWriteExecutor.execute(() -> {
             mAssessmentDao.delete(a);
         });
+    }
+
+    public LiveData<List<Assessment>> getAssessmentsInCourse(String currentCourse) {
+        mAllAssessmentsInCourse = mAssessmentDao.getAssessmentsInCourse(currentCourse);
+        return mAllAssessmentsInCourse;
     }
 }
